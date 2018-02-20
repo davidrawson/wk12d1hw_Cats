@@ -1,72 +1,72 @@
-// const addCat = function (name, favouriteFood, source){
-const addCat = function (){
+const CATS_ARRAY = [
+  { name: "Boba",
+    food: "Sock Fluff",
+    image: "http://66.media.tumblr.com/d1f01bbe0150fda0c40d2151c5eaeac8/tumblr_odlqqskjj61v9cejwo1_400.jpg",
+    image_width: "500"
+  },
 
-  //Create the parent container and it's class
-  const catListContainer = document.createElement('ul');
-  catListContainer.classList.add('cat');
+  { name: "Barnaby",
+    food: "Tuna",
+    image: "https://68.media.tumblr.com/88d0fcf2b84a7b098dda839130597569/tumblr_okuo4teiql1uhevdso1_1280.jpg",
+    image_width: "500"
+  },
 
-  //2. Create the first child list item
-  const catName = document.createElement('li');
-  catName.innerText = "Name: Maggie";
-  // catName.innerText = "Name: " + name;
+  { name: "Max",
+    food: "Whiskas Temptations",
+    image: "http://66.media.tumblr.com/7c5784ea89369c780e782bf10c60315a/tumblr_npb0hlYwhV1u63jaco1_1280.jpg",
+    image_width: "500"
+  },
+];
 
-  //3. Create the second child list item
-  const catFavouriteFood = document.createElement('li');
-  catFavouriteFood.innerText = "Favourite Food: Ham";
-  // catFavouriteFood.innerText = "Favourite Food: " + favouriteFood
-
-  //4. Create the third child list item
-  const catPicSource = document.createElement('li');
-  catPicSource.innerText = "image";
-  // catPicSource.innerHTML = '<img width="500" src="'+ source + '">';
-
-
-  //5. Append the chilren to the parent
-  catListContainer.appendChild(catName);
-  catListContainer.appendChild(catFavouriteFood);
-  catListContainer.appendChild(catPicSource);
-  // catFavouriteFood.appendChild(catPicSource);
-  // catName.appendChild(catFavouriteFood);
-  // catListContainer.appendChild(catName);
-
-  //6. Add it all to the cats list
-  // const catsBit = document.querySelector("#cats");
-  const catsBit = document.getElementById("cats");
-  console.log(catsBit);
-  console.log(catListContainer);
-  catsBit.appendChild(catListContainer);
-
+var app = function(){
+  for (let cat of CATS_ARRAY) {
+    addCat(cat.name, cat.food, cat.image, cat.image_width);
+  }
 }
 
-// const CATS_ARRAY = [
-//   { name: "Boba",
-//     food: "Sock Fluff",
-//     image: "http://66.media.tumblr.com/d1f01bbe0150fda0c40d2151c5eaeac8/tumblr_odlqqskjj61v9cejwo1_400.jpg",
-//     image_width: "500"
-//   },
-//
-//   { name: "Barnaby",
-//     food: "Tuna",
-//     image: "https://68.media.tumblr.com/88d0fcf2b84a7b098dda839130597569/tumblr_okuo4teiql1uhevdso1_1280.jpg",
-//     image_width: "500"
-//   },
-//
-//   { name: "Max",
-//     food: "Whiskas Temptations",
-//     image: "http://66.media.tumblr.com/7c5784ea89369c780e782bf10c60315a/tumblr_npb0hlYwhV1u63jaco1_1280.jpg",
-//     image_width: "500"
-//   },
-// ];
-//
-//
-// const createListContainer = function(){
-//   const catListContainer = document.createElement('ul');
-//   catListContainer.classList.add('cat');
-// }
-//
-//
+const createListContainer = function(){
+  const catListContainer = document.createElement('ul');
+  catListContainer.classList.add('cat');
+  return catListContainer;
+}
 
-addCat();
-// addCat("http://66.media.tumblr.com/d1f01bbe0150fda0c40d2151c5eaeac8/tumblr_odlqqskjj61v9cejwo1_400.jpg");
+const createCatName = function(name){
+  const catName = document.createElement('li');
+  catName.innerText = "Name: " + name;
+  console.log("create cat name", catName);
+  return catName;
+}
 
-// addCat("Maggie", "Ham", "meow");
+const createFavouriteFood = function(favouriteFood){
+  const catFavouriteFood = document.createElement('li');
+  catFavouriteFood.innerText = "Favourite food: " + favouriteFood;
+  console.log("create favourite food", catFavouriteFood);
+  return catFavouriteFood;
+}
+
+const createCatImage = function(image, image_width){
+    const catPicSource = document.createElement('img');
+    catPicSource.setAttribute('width', image_width);
+    catPicSource.setAttribute('src', image);
+    console.log("create cat image", catPicSource);
+    return catPicSource;
+}
+
+const addCat = function(name, food, image, image_width){
+  const catListContainer = createListContainer();
+  const catName = createCatName(name);
+  const catFavouriteFood = createFavouriteFood(food);
+  const catImage = createCatImage(image, image_width);
+  appendElement(catListContainer, catName, catFavouriteFood, catImage)
+}
+
+const appendElement = function(catListContainer, catName, catFavouriteFood, catImage){
+  catListContainer.appendChild(catName);
+  catListContainer.appendChild(catFavouriteFood);
+  catListContainer.appendChild(catImage);
+  console.log("cat list container", catListContainer);
+  const catsBit = document.getElementById("cats");
+  catsBit.appendChild(catListContainer);
+}
+
+document.addEventListener("DOMContentLoaded", app);
